@@ -12,20 +12,21 @@
         extend: {
           colors: {
             primary: {
-              DEFAULT: '#6366F1', /* Rich indigo */
-              hover: '#4F46E5',
-              light: '#818CF8',
-              dark: '#4338CA'
+              DEFAULT: '#8B5CF6', /* Rich purple */
+              hover: '#7C3AED',
+              light: '#A78BFA',
+              dark: '#6D28D9'
             },
             accent: {
               DEFAULT: '#F59E0B', /* Warm amber */
               hover: '#D97706',
-              light: '#FEF3C7'
+              light: '#FEF3C7',
+              gold: '#F7B955'
             },
             dark: {
-              DEFAULT: '#111827',
-              light: '#1F2937',
-              deeper: '#0F172A'
+              DEFAULT: '#0F172A',
+              light: '#1E293B',
+              deeper: '#020617'
             },
             light: {
               DEFAULT: '#F9FAFB',
@@ -36,8 +37,11 @@
               blue: '#2563EB',
               teal: '#0D9488',
               slate: '#334155',
+              gold: '#EAB308',
+              rose: '#E11D48',
               gradient: {
-                start: '#1E293B',
+                start: '#0F172A',
+                mid: '#1E293B',
                 end: '#0F172A'
               }
             }
@@ -48,17 +52,23 @@
           },
           boxShadow: {
             'card': '0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02)',
-            'glow': '0 0 15px rgba(99, 102, 241, 0.5)'
+            'glow': '0 0 15px rgba(139, 92, 246, 0.5)',
+            'gold': '0 0 20px rgba(234, 179, 8, 0.3)'
           },
           animation: {
             'float': 'float 3s ease-in-out infinite',
             'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
             'bounce-slow': 'bounce 2s infinite',
+            'shimmer': 'shimmer 2s linear infinite',
           },
           keyframes: {
             float: {
               '0%, 100%': { transform: 'translateY(0)' },
               '50%': { transform: 'translateY(-10px)' },
+            },
+            shimmer: {
+              '0%': { backgroundPosition: '-200% 0' },
+              '100%': { backgroundPosition: '200% 0' },
             }
           }
         }
@@ -71,7 +81,7 @@
     body {
       font-family: 'Inter', sans-serif;
       overflow-x: hidden;
-      background-color: #0F172A;
+      background-color: #020617;
       color: #F9FAFB;
     }
     
@@ -80,7 +90,7 @@
       position: relative;
       display: inline-flex;
       align-items: center;
-      color: #6366F1;
+      color: #8B5CF6;
       font-weight: 500;
       text-decoration: none;
     }
@@ -209,7 +219,15 @@
 
     /* Gradient text */
     .gradient-text {
-      background: linear-gradient(90deg, #6366F1, #F59E0B);
+      background: linear-gradient(90deg, #8B5CF6, #F59E0B);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline;
+    }
+
+    .gold-gradient-text {
+      background: linear-gradient(90deg, #F7B955, #F59E0B);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -227,10 +245,10 @@
     /* Toggle switch styling */
     .toggle-checkbox:checked {
       right: 0;
-      border-color: #6366F1;
+      border-color: #8B5CF6;
     }
     .toggle-checkbox:checked + .toggle-label {
-      background-color: #6366F1;
+      background-color: #8B5CF6;
     }
 
     /* Footer styling */
@@ -244,7 +262,38 @@
       color: #D1D5DB;
     }
     .text-footer-link-hover {
-      color: #6366F1;
+      color: #8B5CF6;
+    }
+
+    /* Shimmer effect */
+    .shimmer {
+      background: linear-gradient(90deg, 
+        rgba(255,255,255,0) 0%, 
+        rgba(255,255,255,0.05) 50%, 
+        rgba(255,255,255,0) 100%);
+      background-size: 200% 100%;
+      animation: shimmer 2s infinite linear;
+    }
+
+    /* Premium border */
+    .premium-border {
+      border: 1px solid;
+      border-image-slice: 1;
+      border-image-source: linear-gradient(to right, #8B5CF6, #F59E0B);
+    }
+
+    /* Gold accent */
+    .gold-accent {
+      position: relative;
+    }
+    .gold-accent::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, #F7B955, #F59E0B);
     }
 
     @media (max-width: 768px) {
@@ -287,13 +336,13 @@
           <nav class="flex h-18 ">
             <!-- Logo -->
             <a href="/" class="flex items-center mr-10">
-              <div class="h-8 w-8 rounded-full bg-primary flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+              <div class="h-10 w-10 rounded-full bg-gradient-to-r from-primary to-accent flex items-center justify-center shadow-gold">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
                   <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                   <polyline points="22 4 12 14.01 9 11.01"></polyline>
                 </svg>
               </div>
-              <span class="ml-2 text-xl font-bold text-white">WritePro</span>
+              <span class="ml-2 text-xl font-bold text-white gold-gradient-text">WritePro</span>
             </a>
     
             <!-- Desktop Navigation -->
@@ -471,7 +520,7 @@
               <a href="/login" class="text-sm font-medium hover:text-primary text-gray-300">
                 Log in
               </a>
-              <a href="/signup" class="bg-primary hover:bg-primary-hover text-white px-4 py-2 rounded-md text-sm font-medium flex">
+              <a href="/signup" class="bg-gradient-to-r from-primary to-primary-dark hover:from-primary-hover hover:to-primary-dark text-white px-4 py-2 rounded-md text-sm font-medium flex shadow-glow">
                 <span class="font-bold">Get Grammarly</span>
                 <span class="ml-1">It's free</span>
                 <span class="items-center flex pl-2"><svg width="11" height="10" viewBox="0 0 11 10" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-component-name="cta-arrow"><path d="M5.056 1.748L6.144 0.691999L10.304 4.836V4.948L6.144 9.108L5.056 8.036L7.44 5.652H0.304V4.132H7.424L5.056 1.748Z"></path></svg></span>
@@ -638,7 +687,7 @@
               <a href="/contact" class="block text-center py-2 text-primary border border-primary rounded-md">
                 Contact Sales
               </a>
-              <a href="/signup" class="block text-center py-2 bg-primary hover:bg-primary-hover text-white rounded-md">
+              <a href="/signup" class="block text-center py-2 bg-gradient-to-r from-primary to-primary-dark hover:from-primary-hover hover:to-primary-dark text-white rounded-md shadow-glow">
                 <span class="font-bold">Get Started</span>
                 <span class="ml-1">It's free</span>
               </a>
@@ -662,6 +711,9 @@
             
             if (activeMenu) activeMenu.classList.add('hidden');
             if (activeIcon) activeIcon.classList.remove('rotate-180');
+          }
+          
+          // Toggle current  activeIcon.classList.remove('rotate-180');
           }
           
           // Toggle current dropdown
@@ -741,17 +793,27 @@
     
     <main>
       <!-- Hero Section -->
-      <section class="relative bg-gradient-to-r from-premium-gradient-start to-premium-gradient-end text-white py-32 px-6 md:px-12 lg:px-20 flex items-center">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
+      <section class="relative bg-gradient-to-br from-dark-deeper via-premium-purple/20 to-dark-deeper text-white py-32 px-6 md:px-12 lg:px-20 flex items-center overflow-hidden">
+        <!-- Decorative elements -->
+        <div class="absolute inset-0 overflow-hidden">
+          <div class="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxwYXRoIGQ9Ik0gNDAgMCBMIDAgMCAwIDQwIiBmaWxsPSJub25lIiBzdHJva2U9IiM4QjVDRjYiIHN0cm9rZS13aWR0aD0iMC4yIiBvcGFjaXR5PSIwLjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')]"></div>
+          <div class="absolute -top-40 -right-40 w-80 h-80 bg-primary opacity-10 rounded-full blur-3xl"></div>
+          <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-accent-gold opacity-10 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between relative z-10">
           <!-- Text Content -->
           <div class="md:w-1/2 text-center md:text-left space-y-8 animate-fade-in">
-            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight tracking-tight">Just Say It.<br><span class="text-primary-light">Genie Does It.</span></h1>
+            <div class="inline-block px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary-light text-sm font-medium mb-2">
+              AI-Powered Voice Assistant
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight tracking-tight">Just Say It.<br><span class="gradient-text">Genie Does It.</span></h1>
             <p class="text-xl md:text-2xl text-gray-300 max-w-lg">Your favorite apps just got a voice upgrade. Genie works inside Gmail, Slack, LinkedIn, and 100+ apps in any language. Talk instead of type – it's like Siri, but actually useful.</p>
             
             <!-- Email Form -->
             <div class="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto animate-slide-up">
-              <input type="email" placeholder="Enter your email" class="w-full md:w-80 px-6 py-4 text-black rounded-md focus:outline-none shadow-lg border border-gray-700 focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-50 transition-all bg-dark-light text-white">
-              <button class="w-full md:w-auto bg-primary hover:bg-primary-hover text-white px-8 py-4 rounded-md font-semibold shadow-xl text-lg transition-transform transform hover:scale-105">
+              <input type="email" placeholder="Enter your email" class="w-full md:w-80 px-6 py-4 text-white rounded-md focus:outline-none shadow-lg border border-gray-700 focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-50 transition-all bg-dark-light">
+              <button class="w-full md:w-auto bg-gradient-to-r from-primary to-primary-dark hover:from-primary-hover hover:to-primary-dark text-white px-8 py-4 rounded-md font-semibold shadow-xl text-lg transition-transform transform hover:scale-105">
                 UNLOCK YOUR GENIE TODAY →
               </button>
             </div>
@@ -759,19 +821,20 @@
             <!-- Progress Bar -->
             <div class="mt-6 animate-fade-in">
               <div class="h-3 bg-dark-light rounded-full w-full relative overflow-hidden">
-                <div class="h-3 bg-primary rounded-full animate-progress" style="width: 65%"></div>
+                <div class="h-3 bg-gradient-to-r from-primary to-accent rounded-full animate-progress" style="width: 65%"></div>
               </div>
-              <p class="text-lg mt-3 text-gray-300">🚀 500 spots left → <strong>327 already claimed</strong></p>
+              <p class="text-lg mt-3 text-gray-300">🚀 500 spots left → <strong class="text-accent-gold">327 already claimed</strong></p>
             </div>
           </div>
       
           <!-- Image Section -->
           <div class="md:w-1/2 mt-10 md:mt-0 flex justify-center relative animate-float group">
             <img src="https://source.unsplash.com/300x300/?lamp,genie" alt="Genie Lamp" class="absolute top-[-50px] w-28 h-28 drop-shadow-2xl animate-bounce-slow">
-            <div class="grid grid-cols-3 gap-6">
-              <img src="https://source.unsplash.com/400x300/?gmail,app" alt="Gmail Mockup" class="rounded-2xl shadow-2xl w-48 h-36 animate-fade-in transition-transform transform group-hover:scale-110 group-hover:rotate-3">
-              <img src="https://source.unsplash.com/400x300/?linkedin,network" alt="LinkedIn Mockup" class="rounded-2xl shadow-2xl w-48 h-36 animate-fade-in transition-transform transform group-hover:scale-110 group-hover:rotate-3">
-              <img src="https://source.unsplash.com/400x300/?slack,communication" alt="Slack Mockup" class="rounded-2xl shadow-2xl w-48 h-36 animate-fade-in transition-transform transform group-hover:scale-110 group-hover:rotate-3">
+            <div class="grid grid-cols-3 gap-6 relative">
+              <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl blur-3xl opacity-30"></div>
+              <img src="https://source.unsplash.com/400x300/?gmail,app" alt="Gmail Mockup" class="rounded-2xl shadow-2xl w-48 h-36 animate-fade-in transition-transform transform group-hover:scale-110 group-hover:rotate-3 border border-white/10">
+              <img src="https://source.unsplash.com/400x300/?linkedin,network" alt="LinkedIn Mockup" class="rounded-2xl shadow-2xl w-48 h-36 animate-fade-in transition-transform transform group-hover:scale-110 group-hover:rotate-3 border border-white/10">
+              <img src="https://source.unsplash.com/400x300/?slack,communication" alt="Slack Mockup" class="rounded-2xl shadow-2xl w-48 h-36 animate-fade-in transition-transform transform group-hover:scale-110 group-hover:rotate-3 border border-white/10">
             </div>
           </div>
         </div>
@@ -783,7 +846,7 @@
           <!-- Header -->
           <div class="text-center mb-12">
             <h2 class="text-xl md:text-2xl text-gray-300 font-normal">
-              Trusted by 50,000 organizations and 40 million people
+              Trusted by <span class="text-accent-gold font-semibold">50,000</span> organizations and <span class="text-accent-gold font-semibold">40 million</span> people
             </h2>
           </div>
 
@@ -934,12 +997,12 @@
                 class="bg-dark-light rounded-full p-0 border-none focus:outline-none"
                 aria-label="Pause"
               >
-                <div class="h-8 w-8 rounded-full border-2 border-gray-500 flex items-center justify-center">
+                <div class="h-8 w-8 rounded-full border-2 border-primary/50 flex items-center justify-center">
                   <div id="pauseIcon" class="flex">
-                    <div class="w-1 h-4 bg-gray-500 rounded-sm mx-0.5"></div>
-                    <div class="w-1 h-4 bg-gray-500 rounded-sm mx-0.5"></div>
+                    <div class="w-1 h-4 bg-primary rounded-sm mx-0.5"></div>
+                    <div class="w-1 h-4 bg-primary rounded-sm mx-0.5"></div>
                   </div>
-                  <svg id="playIcon" class="h-4 w-4 text-gray-500 hidden" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg id="playIcon" class="h-4 w-4 text-primary hidden" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6 4v16l14-8-14-8z" fill="currentColor" />
                   </svg>
                 </div>
@@ -950,43 +1013,63 @@
       </section>
 
       <!-- Comparison Section -->
-      <section class="bg-premium-gradient-start py-24 px-6 md:px-12">
-        <div class="max-w-7xl mx-auto text-center space-y-12">
+      <section class="bg-gradient-to-br from-dark-deeper via-premium-blue/10 to-dark-deeper py-24 px-6 md:px-12 relative overflow-hidden">
+        <!-- Decorative elements -->
+        <div class="absolute inset-0 overflow-hidden">
+          <div class="absolute top-0 right-0 w-96 h-96 bg-primary opacity-5 rounded-full blur-3xl"></div>
+          <div class="absolute bottom-0 left-0 w-96 h-96 bg-accent-gold opacity-5 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto text-center space-y-12 relative z-10">
           <!-- Section Heading -->
-          <h2 class="text-4xl md:text-5xl font-extrabold text-white">Too Many Tools, Not Enough Magic?</h2>
+          <h2 class="text-4xl md:text-5xl font-extrabold text-white">Too Many Tools, <span class="gradient-text">Not Enough Magic?</span></h2>
       
           <!-- Comparison Cards -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mt-12">
             <!-- Old Way -->
-            <div class="bg-dark-light bg-opacity-50 p-8 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 text-left border border-gray-700">
-              <h3 class="text-2xl font-semibold text-white mb-6">The Old Way</h3>
-              <div class="flex items-center mb-4">
-                <img src="https://img.icons8.com/ios/50/000000/keyboard.png" alt="icon" class="w-8 h-8 mr-4 invert">
+            <div class="bg-dark-light bg-opacity-50 p-8 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 text-left border border-gray-700 relative overflow-hidden group">
+              <div class="absolute inset-0 bg-gradient-to-br from-premium-rose/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <h3 class="text-2xl font-semibold text-white mb-6 relative z-10">The Old Way</h3>
+              <div class="flex items-center mb-4 relative z-10">
+                <div class="w-10 h-10 rounded-full bg-premium-rose/10 flex items-center justify-center mr-4">
+                  <img src="https://img.icons8.com/ios/50/000000/keyboard.png" alt="icon" class="w-6 h-6 invert">
+                </div>
                 <span class="text-lg text-gray-300">Manual Data Entry - Hours of typing</span>
               </div>
-              <div class="flex items-center mb-4">
-                <img src="https://img.icons8.com/ios/50/000000/app.png" alt="icon" class="w-8 h-8 mr-4 invert">
+              <div class="flex items-center mb-4 relative z-10">
+                <div class="w-10 h-10 rounded-full bg-premium-rose/10 flex items-center justify-center mr-4">
+                  <img src="https://img.icons8.com/ios/50/000000/app.png" alt="icon" class="w-6 h-6 invert">
+                </div>
                 <span class="text-lg text-gray-300">Constant App Switching - Wasted time</span>
               </div>
-              <div class="flex items-center mb-4">
-                <img src="https://img.icons8.com/ios/50/000000/language.png" alt="icon" class="w-8 h-8 mr-4 invert">
+              <div class="flex items-center mb-4 relative z-10">
+                <div class="w-10 h-10 rounded-full bg-premium-rose/10 flex items-center justify-center mr-4">
+                  <img src="https://img.icons8.com/ios/50/000000/language.png" alt="icon" class="w-6 h-6 invert">
+                </div>
                 <span class="text-lg text-gray-300">Language Barriers - Miscommunication</span>
               </div>
             </div>
       
             <!-- Genie Way -->
-            <div class="bg-primary bg-opacity-20 p-8 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 text-left border border-primary-dark">
-              <h3 class="text-2xl font-semibold text-white mb-6">The Genie Way</h3>
-              <div class="flex items-center mb-4">
-                <img src="https://img.icons8.com/ios/50/000000/voice.png" alt="icon" class="w-8 h-8 mr-4 invert">
+            <div class="bg-gradient-to-br from-dark-light to-dark-light/50 p-8 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 text-left border border-primary/30 relative overflow-hidden group">
+              <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <h3 class="text-2xl font-semibold text-white mb-6 relative z-10">The Genie Way</h3>
+              <div class="flex items-center mb-4 relative z-10">
+                <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-4">
+                  <img src="https://img.icons8.com/ios/50/000000/voice.png" alt="icon" class="w-6 h-6 invert">
+                </div>
                 <span class="text-lg text-gray-300">Voice Commands - Instant actions</span>
               </div>
-              <div class="flex items-center mb-4">
-                <img src="https://img.icons8.com/ios/50/000000/integration.png" alt="icon" class="w-8 h-8 mr-4 invert">
+              <div class="flex items-center mb-4 relative z-10">
+                <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-4">
+                  <img src="https://img.icons8.com/ios/50/000000/integration.png" alt="icon" class="w-6 h-6 invert">
+                </div>
                 <span class="text-lg text-gray-300">Cross-App Integration - Seamless experience</span>
               </div>
-              <div class="flex items-center mb-4">
-                <img src="https://img.icons8.com/ios/50/000000/language.png" alt="icon" class="w-8 h-8 mr-4 invert">
+              <div class="flex items-center mb-4 relative z-10">
+                <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-4">
+                  <img src="https://img.icons8.com/ios/50/000000/language.png" alt="icon" class="w-6 h-6 invert">
+                </div>
                 <span class="text-lg text-gray-300">Language Translation - Instant communication</span>
               </div>
             </div>
@@ -994,7 +1077,7 @@
       
           <!-- Call to Action Button -->
           <div class="mt-12">
-            <a href="#next-section" class="inline-block bg-primary hover:bg-primary-hover text-white px-8 py-4 rounded-md font-semibold shadow-lg text-lg transition-all transform hover:scale-105">
+            <a href="#next-section" class="inline-block bg-gradient-to-r from-primary to-primary-dark hover:from-primary-hover hover:to-primary-dark text-white px-8 py-4 rounded-md font-semibold shadow-lg text-lg transition-all transform hover:scale-105">
               DISCOVER SIMPLER PRODUCTIVITY →
             </a>
           </div>
@@ -1010,51 +1093,66 @@
           <div class="w-full md:w-1/2 pr-0 md:pr-8">
             <!-- Feature 1: Gmail Transformation -->
             <div id="feature-1" class="feature-section" data-video="video-1">
-              <h2 class="text-5xl md:text-5xl font-bold text-white leading-tight mb-10">
+              <div class="inline-block px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary-light text-sm font-medium mb-4">
+                Gmail Integration
+              </div>
+              <h2 class="text-5xl md:text-5xl font-bold text-white leading-tight mb-6">
                 Gmail
               </h2>
               <p class="text-lg text-gray-400">
-                Voice Command: "Send email to John" – Gmail is transformed by Genie into a seamless experience.
+                Voice Command: <span class="text-accent-gold">"Send email to John"</span> – Gmail is transformed by Genie into a seamless experience.
               </p>
             </div>
       
             <!-- Feature 2: Slack Transformation -->
             <div id="feature-2" class="feature-section" data-video="video-2">
-              <h2 class="text-5xl md:text-5xl font-semibold text-white leading-tight mb-10">
+              <div class="inline-block px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary-light text-sm font-medium mb-4">
+                Slack Integration
+              </div>
+              <h2 class="text-5xl md:text-5xl font-semibold text-white leading-tight mb-6">
                 Slack
               </h2>
               <p class="text-lg text-gray-400">
-                Voice Command: "Send message to the team" – Slack transforms from typing into instant voice commands.
+                Voice Command: <span class="text-accent-gold">"Send message to the team"</span> – Slack transforms from typing into instant voice commands.
               </p>
             </div>
       
             <!-- Feature 3: LinkedIn Transformation -->
             <div id="feature-3" class="feature-section" data-video="video-3">
-              <h2 class="text-5xl md:text-5xl font-semibold text-white leading-tight mb-10">
+              <div class="inline-block px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary-light text-sm font-medium mb-4">
+                LinkedIn Integration
+              </div>
+              <h2 class="text-5xl md:text-5xl font-semibold text-white leading-tight mb-6">
                 LinkedIn
               </h2>
               <p class="text-lg text-gray-400">
-                Voice Command: "Post an update about the meeting" – Post LinkedIn updates with your voice.
+                Voice Command: <span class="text-accent-gold">"Post an update about the meeting"</span> – Post LinkedIn updates with your voice.
               </p>
             </div>
       
             <!-- Feature 4: Claude Transformation -->
             <div id="feature-4" class="feature-section" data-video="video-4">
-              <h2 class="text-5xl md:text-5xl font-semibold text-white leading-tight mb-10">
+              <div class="inline-block px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary-light text-sm font-medium mb-4">
+                Claude Integration
+              </div>
+              <h2 class="text-5xl md:text-5xl font-semibold text-white leading-tight mb-6">
                 Claude
               </h2>
               <p class="text-lg text-gray-400">
-                Voice Command: "Start a new task" – Claude's interface is transformed into a voice-driven assistant.
+                Voice Command: <span class="text-accent-gold">"Start a new task"</span> – Claude's interface is transformed into a voice-driven assistant.
               </p>
             </div>
       
             <!-- Testimonial -->
             <div id="feature-5" class="feature-section" data-video="video-5">
-              <h2 class="text-5xl md:text-5xl font-semibold text-white leading-tight mb-10">
+              <div class="inline-block px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary-light text-sm font-medium mb-4">
+                User Testimonial
+              </div>
+              <h2 class="text-5xl md:text-5xl font-semibold text-white leading-tight mb-6">
                 Testimonial
               </h2>
               <p class="text-lg text-gray-400 mb-6">
-                "I haven't typed an email since getting Genie. My thumbs thank me." – Sarah, Marketing Director
+                "I haven't typed an email since getting Genie. My thumbs thank me." – <span class="text-accent-gold">Sarah, Marketing Director</span>
               </p>
             </div>
           </div>
@@ -1065,7 +1163,8 @@
               <div class="videos-wrapper">
                 <!-- Video 1 - Gmail -->
                 <div id="video-1" class="video-container active">
-                  <video class="w-full h-full object-cover" autoplay loop muted playsinline poster="https://cdn.pixabay.com/photo/2021/06/21/19/44/mountain-6345664_960_720.jpg">
+                  <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-xl"></div>
+                  <video class="w-full h-full object-cover rounded-xl" autoplay loop muted playsinline poster="https://cdn.pixabay.com/photo/2021/06/21/19/44/mountain-6345664_960_720.jpg">
                     <source src="https://cdn.pixabay.com/download/video/6345664.mp4?_=1" type="video/mp4">
                     Sorry, your browser doesn't support embedded videos
                   </video>
@@ -1074,7 +1173,8 @@
       
                 <!-- Video 2 - Slack -->
                 <div id="video-2" class="video-container">
-                  <video class="w-full h-full object-cover" autoplay loop muted playsinline poster="https://cdn.pixabay.com/photo/2022/05/10/08/16/waterfall-7189357_960_720.jpg">
+                  <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-xl"></div>
+                  <video class="w-full h-full object-cover rounded-xl" autoplay loop muted playsinline poster="https://cdn.pixabay.com/photo/2022/05/10/08/16/waterfall-7189357_960_720.jpg">
                     <source src="https://cdn.pixabay.com/download/video/7189357.mp4?_=2" type="video/mp4">
                     Sorry, your browser doesn't support embedded videos
                   </video>
@@ -1083,7 +1183,8 @@
       
                 <!-- Video 3 - LinkedIn -->
                 <div id="video-3" class="video-container">
-                  <video class="w-full h-full object-cover" autoplay loop muted playsinline poster="https://cdn.pixabay.com/photo/2021/04/16/14/47/forest-8189319_960_720.jpg">
+                  <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-xl"></div>
+                  <video class="w-full h-full object-cover rounded-xl" autoplay loop muted playsinline poster="https://cdn.pixabay.com/photo/2021/04/16/14/47/forest-8189319_960_720.jpg">
                     <source src="https://cdn.pixabay.com/download/video/8189319.mp4?_=3" type="video/mp4">
                     Sorry, your browser doesn't support embedded videos
                   </video>
@@ -1092,7 +1193,8 @@
       
                 <!-- Video 4 - Claude -->
                 <div id="video-4" class="video-container">
-                  <video class="w-full h-full object-cover" autoplay loop muted playsinline poster="https://cdn.pixabay.com/photo/2021/08/30/04/57/mountains-6583682_960_720.jpg">
+                  <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-xl"></div>
+                  <video class="w-full h-full object-cover rounded-xl" autoplay loop muted playsinline poster="https://cdn.pixabay.com/photo/2021/08/30/04/57/mountains-6583682_960_720.jpg">
                     <source src="https://cdn.pixabay.com/download/video/6583682.mp4?_=4" type="video/mp4">
                     Sorry, your browser doesn't support embedded videos
                   </video>
@@ -1101,7 +1203,8 @@
       
                 <!-- Video 5 - Testimonial -->
                 <div id="video-5" class="video-container">
-                  <video class="w-full h-full object-cover" autoplay loop muted playsinline poster="https://cdn.pixabay.com/photo/2020/03/30/14/59/sunset-4980326_960_720.jpg">
+                  <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-xl"></div>
+                  <video class="w-full h-full object-cover rounded-xl" autoplay loop muted playsinline poster="https://cdn.pixabay.com/photo/2020/03/30/14/59/sunset-4980326_960_720.jpg">
                     <source src="https://cdn.pixabay.com/download/video/4980326.mp4?_=5" type="video/mp4">
                     Sorry, your browser doesn't support embedded videos
                   </video>
@@ -1114,63 +1217,119 @@
       </div>
 
       <!-- Benefits Section -->
-      <section class="py-16 bg-premium-blue bg-opacity-10 px-6 md:px-12 lg:px-20">
-        <div class="container mx-auto">
-            <h2 class="text-3xl font-bold text-white text-center mb-8">What Happens When You Stop Typing?</h2>
+      <section class="py-16 bg-gradient-to-br from-premium-purple/10 via-dark-deeper to-premium-blue/10 px-6 md:px-12 lg:px-20 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxwYXRoIGQ9Ik0gNDAgMCBMIDAgMCAwIDQwIiBmaWxsPSJub25lIiBzdHJva2U9IiM4QjVDRjYiIHN0cm9rZS13aWR0aD0iMC4yIiBvcGFjaXR5PSIwLjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')]"></div>
+        <div class="container mx-auto relative z-10">
+            <h2 class="text-3xl font-bold text-white text-center mb-8">What Happens When You <span class="gradient-text">Stop Typing?</span></h2>
     
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-dark-light rounded-lg p-6 shadow-md border border-gray-800">
-                    <h3 class="text-2xl font-semibold text-primary-light mb-4">For You</h3>
-                    <ul class="space-y-2">
-                        <li class="flex items-center"><span class="mr-2 text-green-500">✓</span><span class="text-gray-300">Faster communication</span></li>
-                        <li class="flex items-center"><span class="mr-2 text-green-500">✓</span><span class="text-gray-300">Reduced typing fatigue</span></li>
-                        <li class="flex items-center"><span class="mr-2 text-green-500">✓</span><span class="text-gray-300">Improved accessibility</span></li>
-                        <li class="flex items-center"><span class="mr-2 text-green-500">✓</span><span class="text-gray-300">More natural interaction</span></li>
+                <div class="bg-dark-light rounded-lg p-6 shadow-md border border-gray-800 relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <h3 class="text-2xl font-semibold text-primary-light mb-4 relative z-10">For You</h3>
+                    <ul class="space-y-4 relative z-10">
+                        <li class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-green-500/10 flex items-center justify-center mr-3">
+                                <span class="text-green-500">✓</span>
+                            </div>
+                            <span class="text-gray-300">Faster communication</span>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-green-500/10 flex items-center justify-center mr-3">
+                                <span class="text-green-500">✓</span>
+                            </div>
+                            <span class="text-gray-300">Reduced typing fatigue</span>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-green-500/10 flex items-center justify-center mr-3">
+                                <span class="text-green-500">✓</span>
+                            </div>
+                            <span class="text-gray-300">Improved accessibility</span>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-green-500/10 flex items-center justify-center mr-3">
+                                <span class="text-green-500">✓</span>
+                            </div>
+                            <span class="text-gray-300">More natural interaction</span>
+                        </li>
                     </ul>
                 </div>
-                <div class="bg-dark-light rounded-lg p-6 shadow-md border border-gray-800">
-                    <h3 class="text-2xl font-semibold text-primary-light mb-4">For Your Apps</h3>
-                    <ul class="space-y-2">
-                        <li class="flex items-center"><span class="mr-2 text-green-500">✓</span><span class="text-gray-300">Enhanced user experience</span></li>
-                        <li class="flex items-center"><span class="mr-2 text-green-500">✓</span><span class="text-gray-300">Increased user engagement</span></li>
-                        <li class="flex items-center"><span class="mr-2 text-green-500">✓</span><span class="text-gray-300">Seamless integration with voice</span></li>
-                        <li class="flex items-center"><span class="mr-2 text-green-500">✓</span><span class="text-gray-300">Innovative feature set</span></li>
+                <div class="bg-dark-light rounded-lg p-6 shadow-md border border-gray-800 relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <h3 class="text-2xl font-semibold text-primary-light mb-4 relative z-10">For Your Apps</h3>
+                    <ul class="space-y-4 relative z-10">
+                        <li class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-green-500/10 flex items-center justify-center mr-3">
+                                <span class="text-green-500">✓</span>
+                            </div>
+                            <span class="text-gray-300">Enhanced user experience</span>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-green-500/10 flex items-center justify-center mr-3">
+                                <span class="text-green-500">✓</span>
+                            </div>
+                            <span class="text-gray-300">Increased user engagement</span>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-green-500/10 flex items-center justify-center mr-3">
+                                <span class="text-green-500">✓</span>
+                            </div>
+                            <span class="text-gray-300">Seamless integration with voice</span>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-green-500/10 flex items-center justify-center mr-3">
+                                <span class="text-green-500">✓</span>
+                            </div>
+                            <span class="text-gray-300">Innovative feature set</span>
+                        </li>
                     </ul>
                 </div>
             </div>
     
             <div class="text-center mt-10">
-                <p class="text-gray-400 mb-4">Join 1,237 early genies → Get permanent 'I Was Voice-First' badge</p>
-                <button class="bg-primary text-white font-semibold py-3 px-8 rounded-full hover:bg-primary-hover transition-colors duration-300">JOIN THE VOICE REVOLUTION</button>
+                <p class="text-gray-400 mb-4">Join <span class="text-accent-gold font-semibold">1,237</span> early genies → Get permanent 'I Was Voice-First' badge</p>
+                <button class="bg-gradient-to-r from-primary to-primary-dark hover:from-primary-hover hover:to-primary-dark text-white font-semibold py-3 px-8 rounded-full shadow-glow transition-all duration-300 transform hover:scale-105">JOIN THE VOICE REVOLUTION</button>
             </div>
         </div>
       </section>
 
       <!-- Steps Section -->
-      <section class="py-20 bg-dark-deeper px-6 md:px-12 lg:px-20">
-        <div class="container mx-auto text-center">
-            <h2 class="text-3xl font-bold text-white mb-12">3 Steps to Becoming a Voice Wizard</h2>
+      <section class="py-20 bg-dark-deeper px-6 md:px-12 lg:px-20 relative overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden">
+          <div class="absolute top-0 left-0 w-96 h-96 bg-primary opacity-5 rounded-full blur-3xl"></div>
+          <div class="absolute bottom-0 right-0 w-96 h-96 bg-accent-gold opacity-5 rounded-full blur-3xl"></div>
+        </div>
+        <div class="container mx-auto text-center relative z-10">
+            <h2 class="text-3xl font-bold text-white mb-12">3 Steps to Becoming a <span class="gradient-text">Voice Wizard</span></h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-dark-light rounded-lg shadow-md border border-gray-800">
-                    <div class="bg-primary p-4 rounded-t-lg"></div>
-                    <div class="p-8">
-                        <img src="chrome-extension.png" alt="Chrome Extension" class="mx-auto mb-4 w-12 h-12 invert">
+                <div class="bg-dark-light rounded-lg shadow-md border border-gray-800 relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="h-2 bg-gradient-to-r from-primary to-primary-dark rounded-t-lg"></div>
+                    <div class="p-8 relative z-10">
+                        <div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6 group-hover:animate-float">
+                            <img src="chrome-extension.png" alt="Chrome Extension" class="w-8 h-8 invert">
+                        </div>
                         <h3 class="text-xl font-semibold text-primary-light mb-2">Install Extension</h3>
                         <p class="text-gray-400">Add our Chrome extension and get started in seconds.</p>
                     </div>
                 </div>
-                <div class="bg-dark-light rounded-lg shadow-md border border-gray-800">
-                    <div class="bg-primary p-4 rounded-t-lg"></div>
-                    <div class="p-8">
-                        <img src="microphone.png" alt="Microphone" class="mx-auto mb-4 w-12 h-12 invert">
+                <div class="bg-dark-light rounded-lg shadow-md border border-gray-800 relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="h-2 bg-gradient-to-r from-primary to-primary-dark rounded-t-lg"></div>
+                    <div class="p-8 relative z-10">
+                        <div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6 group-hover:animate-float">
+                            <img src="microphone.png" alt="Microphone" class="w-8 h-8 invert">
+                        </div>
                         <h3 class="text-xl font-semibold text-primary-light mb-2">Speak Naturally</h3>
                         <p class="text-gray-400">Use your voice to interact with any website.</p>
                     </div>
                 </div>
-                <div class="bg-dark-light rounded-lg shadow-md border border-gray-800">
-                    <div class="bg-primary p-4 rounded-t-lg"></div>
-                    <div class="p-8">
-                        <img src="relaxed-person.png" alt="Relaxed Person" class="mx-auto mb-4 w-12 h-12 invert">
+                <div class="bg-dark-light rounded-lg shadow-md border border-gray-800 relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="h-2 bg-gradient-to-r from-primary to-primary-dark rounded-t-lg"></div>
+                    <div class="p-8 relative z-10">
+                        <div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6 group-hover:animate-float">
+                            <img src="relaxed-person.png" alt="Relaxed Person" class="w-8 h-8 invert">
+                        </div>
                         <h3 class="text-xl font-semibold text-primary-light mb-2">Enjoy Effortlessly</h3>
                         <p class="text-gray-400">Experience a new level of online freedom and ease.</p>
                     </div>
@@ -1180,8 +1339,9 @@
       </section>
 
       <!-- Use Cases Section -->
-      <section class="bg-premium-gradient-start py-16 px-6 md:px-12 lg:px-20">
-        <div class="container mx-auto px-4">
+      <section class="bg-gradient-to-br from-dark-deeper via-premium-blue/10 to-dark-deeper py-16 px-6 md:px-12 lg:px-20 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxwYXRoIGQ9Ik0gNDAgMCBMIDAgMCAwIDQwIiBmaWxsPSJub25lIiBzdHJva2U9IiM4QjVDRjYiIHN0cm9rZS13aWR0aD0iMC4yIiBvcGFjaXR5PSIwLjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')]"></div>
+        <div class="container mx-auto px-4 relative z-10">
             <!-- Section Header -->
             <div class="mb-12 text-center">
                 <div class="relative mx-auto mb-6">
@@ -1200,22 +1360,24 @@
                     </svg>
                 </div>
                 <span class="mb-2 inline-block text-sm font-medium uppercase tracking-wider text-primary-light"><span class="mr-2">+</span> USE CASES <span class="ml-2">+</span></span>
-                <h2 class="text-3xl font-bold leading-tight md:text-4xl text-white">The Genie You've Always Wanted</h2>
+                <h2 class="text-3xl font-bold leading-tight md:text-4xl text-white">The Genie You've <span class="gradient-text">Always Wanted</span></h2>
             </div>
     
             <!-- Use Case Cards Grid -->
             <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 <!-- Use Case Item 1 -->
-                <div class="group relative overflow-hidden rounded-lg border border-gray-700 bg-dark-light shadow-md transition-all hover:shadow-lg">
-                    <div class="absolute right-4 top-4 z-10 rounded-full bg-primary p-1 text-white">
+                <div class="group relative overflow-hidden rounded-lg border border-gray-700 bg-dark-light shadow-md transition-all hover:shadow-lg hover:-translate-y-1 duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="absolute right-4 top-4 z-10 rounded-full bg-gradient-to-r from-primary to-primary-dark p-1 text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check h-4 w-4">
                             <path d="M20 6 9 17l-5-5"></path>
                         </svg>
                     </div>
                     <div class="relative h-[200px] w-full overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-light to-transparent z-10"></div>
                         <img alt="Meeting notes example" loading="lazy" decoding="async" class="object-cover transition-transform duration-300 group-hover:scale-105" src="/placeholder.svg?height=200&amp;width=300" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                     </div>
-                    <div class="p-6">
+                    <div class="p-6 relative z-10">
                         <h3 class="mb-2 text-xl font-semibold text-white">Meeting Notes</h3>
                         <p class="mb-4 text-gray-400">Automatically transcribe and summarize your meetings, extracting key action items and decisions.</p>
                         <a href="#" class="inline-flex items-center text-sm font-medium text-primary-light transition-colors hover:text-primary-light/80">GET YOUR GENIE →</a>
@@ -1223,16 +1385,18 @@
                 </div>
     
                 <!-- Use Case Item 2 -->
-                <div class="group relative overflow-hidden rounded-lg border border-gray-700 bg-dark-light shadow-md transition-all hover:shadow-lg">
-                    <div class="absolute right-4 top-4 z-10 rounded-full bg-primary p-1 text-white">
+                <div class="group relative overflow-hidden rounded-lg border border-gray-700 bg-dark-light shadow-md transition-all hover:shadow-lg hover:-translate-y-1 duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="absolute right-4 top-4 z-10 rounded-full bg-gradient-to-r from-primary to-primary-dark p-1 text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check h-4 w-4">
                             <path d="M20 6 9 17l-5-5"></path>
                         </svg>
                     </div>
                     <div class="relative h-[200px] w-full overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-light to-transparent z-10"></div>
                         <img alt="LinkedIn connection example" loading="lazy" decoding="async" class="object-cover transition-transform duration-300 group-hover:scale-105" src="/placeholder.svg?height=200&amp;width=300" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                     </div>
-                    <div class="p-6">
+                    <div class="p-6 relative z-10">
                         <h3 class="mb-2 text-xl font-semibold text-white">LinkedIn Connection</h3>
                         <p class="mb-4 text-gray-400">Generate personalized connection requests and follow-up messages based on profile information.</p>
                         <a href="#" class="inline-flex items-center text-sm font-medium text-primary-light transition-colors hover:text-primary-light/80">GET YOUR GENIE →</a>
@@ -1240,16 +1404,18 @@
                 </div>
     
                 <!-- Use Case Item 3 -->
-                <div class="group relative overflow-hidden rounded-lg border border-gray-700 bg-dark-light shadow-md transition-all hover:shadow-lg">
-                    <div class="absolute right-4 top-4 z-10 rounded-full bg-primary p-1 text-white">
+                <div class="group relative overflow-hidden rounded-lg border border-gray-700 bg-dark-light shadow-md transition-all hover:shadow-lg hover:-translate-y-1 duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="absolute right-4 top-4 z-10 rounded-full bg-gradient-to-r from-primary to-primary-dark p-1 text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check h-4 w-4">
                             <path d="M20 6 9 17l-5-5"></path>
                         </svg>
                     </div>
                     <div class="relative h-[200px] w-full overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-light to-transparent z-10"></div>
                         <img alt="Social media post example" loading="lazy" decoding="async" class="object-cover transition-transform duration-300 group-hover:scale-105" src="/placeholder.svg?height=200&amp;width=300" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                     </div>
-                    <div class="p-6">
+                    <div class="p-6 relative z-10">
                         <h3 class="mb-2 text-xl font-semibold text-white">Social Media Post</h3>
                         <p class="mb-4 text-gray-400">Create engaging content for multiple platforms with appropriate hashtags and formatting.</p>
                         <a href="#" class="inline-flex items-center text-sm font-medium text-primary-light transition-colors hover:text-primary-light/80">GET YOUR GENIE →</a>
@@ -1257,16 +1423,18 @@
                 </div>
     
                 <!-- Use Case Item 4 -->
-                <div class="group relative overflow-hidden rounded-lg border border-gray-700 bg-dark-light shadow-md transition-all hover:shadow-lg">
-                    <div class="absolute right-4 top-4 z-10 rounded-full bg-primary p-1 text-white">
+                <div class="group relative overflow-hidden rounded-lg border border-gray-700 bg-dark-light shadow-md transition-all hover:shadow-lg hover:-translate-y-1 duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="absolute right-4 top-4 z-10 rounded-full bg-gradient-to-r from-primary to-primary-dark p-1 text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check h-4 w-4">
                             <path d="M20 6 9 17l-5-5"></path>
                         </svg>
                     </div>
                     <div class="relative h-[200px] w-full overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-light to-transparent z-10"></div>
                         <img alt="Calendar event example" loading="lazy" decoding="async" class="object-cover transition-transform duration-300 group-hover:scale-105" src="/placeholder.svg?height=200&amp;width=300" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                     </div>
-                    <div class="p-6">
+                    <div class="p-6 relative z-10">
                         <h3 class="mb-2 text-xl font-semibold text-white">Calendar Event</h3>
                         <p class="mb-4 text-gray-400">Schedule and organize your meetings with smart suggestions for timing and participants.</p>
                         <a href="#" class="inline-flex items-center text-sm font-medium text-primary-light transition-colors hover:text-primary-light/80">GET YOUR GENIE →</a>
@@ -1274,16 +1442,18 @@
                 </div>
     
                 <!-- Use Case Item 5 -->
-                <div class="group relative overflow-hidden rounded-lg border border-gray-700 bg-dark-light shadow-md transition-all hover:shadow-lg">
-                    <div class="absolute right-4 top-4 z-10 rounded-full bg-primary p-1 text-white">
+                <div class="group relative overflow-hidden rounded-lg border border-gray-700 bg-dark-light shadow-md transition-all hover:shadow-lg hover:-translate-y-1 duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="absolute right-4 top-4 z-10 rounded-full bg-gradient-to-r from-primary to-primary-dark p-1 text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check h-4 w-4">
                             <path d="M20 6 9 17l-5-5"></path>
                         </svg>
                     </div>
                     <div class="relative h-[200px] w-full overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-light to-transparent z-10"></div>
                         <img alt="Research summary example" loading="lazy" decoding="async" class="object-cover transition-transform duration-300 group-hover:scale-105" src="/placeholder.svg?height=200&amp;width=300" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
                     </div>
-                    <div class="p-6">
+                    <div class="p-6 relative z-10">
                         <h3 class="mb-2 text-xl font-semibold text-white">Research Summary</h3>
                         <p class="mb-4 text-gray-400">Compile and analyze information from multiple sources into comprehensive research reports.</p>
                         <a href="#" class="inline-flex items-center text-sm font-medium text-primary-light transition-colors hover:text-primary-light/80">GET YOUR GENIE →</a>
@@ -1294,56 +1464,89 @@
       </section>
 
       <!-- Technology Section -->
-      <section class="bg-premium-gradient-end py-16 text-white px-6 md:px-12 lg:px-20">
-        <div class="container mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-4">Powered by Advanced AI Technology</h2>
+      <section class="bg-gradient-to-br from-dark-deeper via-premium-purple/10 to-dark-deeper py-16 text-white px-6 md:px-12 lg:px-20 relative overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden">
+          <div class="absolute top-0 right-0 w-96 h-96 bg-primary opacity-5 rounded-full blur-3xl"></div>
+          <div class="absolute bottom-0 left-0 w-96 h-96 bg-accent-gold opacity-5 rounded-full blur-3xl"></div>
+        </div>
+        <div class="container mx-auto text-center relative z-10">
+            <h2 class="text-4xl font-bold mb-4">Powered by <span class="gradient-text">Advanced AI Technology</span></h2>
             <p class="text-lg text-gray-400 mb-12">The magic happens through cutting-edge technology (but you don't need to understand it to use it).</p>
     
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
-                <span class="px-6 py-3 rounded-lg border border-primary hover:shadow-[0px_0px_20px_#6366F1] transition-all duration-300 bg-dark-light bg-opacity-30">Machine Learning</span>
-                <span class="px-6 py-3 rounded-lg border border-primary hover:shadow-[0px_0px_20px_#6366F1] transition-all duration-300 bg-dark-light bg-opacity-30">Deep Learning</span>
-                <span class="px-6 py-3 rounded-lg border border-primary hover:shadow-[0px_0px_20px_#6366F1] transition-all duration-300 bg-dark-light bg-opacity-30">Natural Language Processing</span>
-                <span class="px-6 py-3 rounded-lg border border-primary hover:shadow-[0px_0px_20px_#6366F1] transition-all duration-300 bg-dark-light bg-opacity-30">Voice Recognition</span>
+                <span class="px-6 py-3 rounded-lg border border-primary hover:shadow-[0px_0px_20px_#8B5CF6] transition-all duration-300 bg-dark-light bg-opacity-30 relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 shimmer"></div>
+                    <span class="relative z-10">Machine Learning</span>
+                </span>
+                <span class="px-6 py-3 rounded-lg border border-primary hover:shadow-[0px_0px_20px_#8B5CF6] transition-all duration-300 bg-dark-light bg-opacity-30 relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 shimmer"></div>
+                    <span class="relative z-10">Deep Learning</span>
+                </span>
+                <span class="px-6 py-3 rounded-lg border border-primary hover:shadow-[0px_0px_20px_#8B5CF6] transition-all duration-300 bg-dark-light bg-opacity-30 relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 shimmer"></div>
+                    <span class="relative z-10">Natural Language Processing</span>
+                </span>
+                <span class="px-6 py-3 rounded-lg border border-primary hover:shadow-[0px_0px_20px_#8B5CF6] transition-all duration-300 bg-dark-light bg-opacity-30 relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 shimmer"></div>
+                    <span class="relative z-10">Voice Recognition</span>
+                </span>
             </div>
         </div>
       </section>
 
       <!-- AI Dashboard Section -->
-      <section class="bg-dark-deeper py-16 px-6 md:px-12 lg:px-20">
-        <div class="container mx-auto grid lg:grid-cols-2 gap-12 items-center">
+      <section class="bg-dark-deeper py-16 px-6 md:px-12 lg:px-20 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxwYXRoIGQ9Ik0gNDAgMCBMIDAgMCAwIDQwIiBmaWxsPSJub25lIiBzdHJva2U9IiM4QjVDRjYiIHN0cm9rZS13aWR0aD0iMC4yIiBvcGFjaXR5PSIwLjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')]"></div>
+        <div class="container mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10">
             <!-- Left: Image with AI Panel UI -->
-            <div class="p-8 bg-dark-light rounded-xl shadow-lg border border-gray-800">
-                <img src="ai-dashboard.png" alt="AI Panel" class="w-full h-auto">
+            <div class="p-8 bg-dark-light rounded-xl shadow-lg border border-gray-800 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <img src="ai-dashboard.png" alt="AI Panel" class="w-full h-auto relative z-10">
             </div>
     
             <!-- Right: Content -->
             <div class="px-6 lg:px-12">
-                <h2 class="text-4xl font-bold text-white mb-4">Your Genie Gets Smarter Every Day</h2>
+                <div class="inline-block px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary-light text-sm font-medium mb-4">
+                    AI-Powered Learning
+                </div>
+                <h2 class="text-4xl font-bold text-white mb-4">Your Genie Gets <span class="gradient-text">Smarter Every Day</span></h2>
                 <p class="text-lg text-gray-400 mb-6">It's Your Personal AI That Learns Your Style</p>
                 <ul class="grid grid-cols-2 gap-4">
-                    <li class="bg-dark-light p-4 rounded-lg border border-gray-800 text-gray-300">📌 Learns Your Preferences</li>
-                    <li class="bg-dark-light p-4 rounded-lg border border-gray-800 text-gray-300">📌 Remembers Your Common Phrases</li>
-                    <li class="bg-dark-light p-4 rounded-lg border border-gray-800 text-gray-300">📌 Predicts & Improves Suggestions</li>
-                    <li class="bg-dark-light p-4 rounded-lg border border-gray-800 text-gray-300">📌 Adapts To Your Writing Speed</li>
+                    <li class="bg-dark-light p-4 rounded-lg border border-gray-800 text-gray-300 relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <span class="relative z-10">📌 Learns Your Preferences</span>
+                    </li>
+                    <li class="bg-dark-light p-4 rounded-lg border border-gray-800 text-gray-300 relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <span class="relative z-10">📌 Remembers Your Common Phrases</span>
+                    </li>
+                    <li class="bg-dark-light p-4 rounded-lg border border-gray-800 text-gray-300 relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <span class="relative z-10">📌 Predicts & Improves Suggestions</span>
+                    </li>
+                    <li class="bg-dark-light p-4 rounded-lg border border-gray-800 text-gray-300 relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <span class="relative z-10">📌 Adapts To Your Writing Speed</span>
+                    </li>
                 </ul>
             </div>
         </div>
       </section>
 
       <!-- Testimonials Section -->
-      <section class="relative py-16 bg-premium-blue bg-opacity-10 overflow-hidden px-6 md:px-12 lg:px-20">
+      <section class="relative py-16 bg-gradient-to-br from-premium-purple/10 via-dark-deeper to-premium-blue/10 overflow-hidden px-6 md:px-12 lg:px-20">
         <!-- Decorative Shapes -->
         <div class="absolute top-0 left-0 w-32 h-32 opacity-20">
-          <img src="https://placehold.co/200x200/6366f1/FFFFFF?text=Shape" alt="" class="w-full h-full">
+          <img src="https://placehold.co/200x200/8B5CF6/FFFFFF?text=Shape" alt="" class="w-full h-full">
         </div>
         <div class="absolute top-20 right-20 w-24 h-24 opacity-10">
-          <img src="https://placehold.co/200x200/6366f1/FFFFFF?text=Shape" alt="" class="w-full h-full">
+          <img src="https://placehold.co/200x200/8B5CF6/FFFFFF?text=Shape" alt="" class="w-full h-full">
         </div>
         <div class="absolute bottom-0 left-1/4 w-40 h-40 opacity-15">
-          <img src="https://placehold.co/200x200/6366f1/FFFFFF?text=Shape" alt="" class="w-full h-full">
+          <img src="https://placehold.co/200x200/8B5CF6/FFFFFF?text=Shape" alt="" class="w-full h-full">
         </div>
         <div class="absolute bottom-10 right-10 w-32 h-32 opacity-20">
-          <img src="https://placehold.co/200x200/6366f1/FFFFFF?text=Shape" alt="" class="w-full h-full">
+          <img src="https://placehold.co/200x200/8B5CF6/FFFFFF?text=Shape" alt="" class="w-full h-full">
         </div>
         
         <div class="container mx-auto px-4 relative z-10">
@@ -1353,21 +1556,24 @@
               <h3 class="text-3xl md:text-4xl font-bold text-center relative inline-block text-white">
                 <span class="absolute w-2 h-2 bg-primary rounded-full -left-4 top-0"></span>
                 <span class="absolute w-2 h-2 bg-primary rounded-full -left-4 bottom-0"></span>
-                Everyone's Talking Genie
+                Everyone's Talking <span class="gradient-text">Genie</span>
                 <span class="absolute w-2 h-2 bg-primary rounded-full -right-4 top-0"></span>
                 <span class="absolute w-2 h-2 bg-primary rounded-full -right-4 bottom-0"></span>
               </h3>
-              <p class="text-gray-400 mt-4">World wide 16,000+ happy customers</p>
+              <p class="text-gray-400 mt-4">World wide <span class="text-accent-gold font-semibold">16,000+</span> happy customers</p>
             </div>
           </div>
           
           <div class="flex flex-col lg:flex-row gap-8">
             <!-- Testimonial Slider - Left Side -->
             <div class="lg:w-2/3">
-              <div class="relative bg-dark-light rounded-xl shadow-lg p-8 mb-8 border border-gray-800">
-                <div id="testimonial-content" class="relative">
+              <div class="relative bg-dark-light rounded-xl shadow-lg p-8 mb-8 border border-gray-800 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div id="testimonial-content" class="relative z-10">
                   <!-- Quote Icon -->
-                  <img src="https://placehold.co/60x60/6366f1/FFFFFF?text=Quote" alt="Quote" class="w-12 h-12 mb-6">
+                  <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+                    <img src="https://placehold.co/60x60/8B5CF6/FFFFFF?text=Quote" alt="Quote" class="w-8 h-8">
+                  </div>
                   
                   <!-- Testimonial Text -->
                   <div class="mb-6">
@@ -1381,11 +1587,11 @@
                   
                   <!-- Rating Stars -->
                   <div class="flex items-center">
-                    <i class="fas fa-star text-yellow-400"></i>
-                    <i class="fas fa-star text-yellow-400 ml-1"></i>
-                    <i class="fas fa-star text-yellow-400 ml-1"></i>
-                    <i class="fas fa-star text-yellow-400 ml-1"></i>
-                    <i class="fas fa-star text-yellow-400 ml-1"></i>
+                    <i class="fas fa-star text-accent-gold"></i>
+                    <i class="fas fa-star text-accent-gold ml-1"></i>
+                    <i class="fas fa-star text-accent-gold ml-1"></i>
+                    <i class="fas fa-star text-accent-gold ml-1"></i>
+                    <i class="fas fa-star text-accent-gold ml-1"></i>
                   </div>
                 </div>
               </div>
@@ -1400,59 +1606,62 @@
               <!-- 3-Column Testimonial Grid -->
               <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Testimonial Card 1 -->
-                <div class="bg-dark-light rounded-lg shadow-md p-6 transition-transform hover:-translate-y-1 hover:shadow-lg border border-gray-800">
-                  <div class="flex items-center mb-4">
-                    <img src="https://placehold.co/60x60/6366f1/FFFFFF?text=User" alt="User" class="w-12 h-12 rounded-full mr-4">
+                <div class="bg-dark-light rounded-lg shadow-md p-6 transition-transform hover:-translate-y-1 hover:shadow-lg duration-300 border border-gray-800 relative overflow-hidden group">
+                  <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div class="flex items-center mb-4 relative z-10">
+                    <img src="https://placehold.co/60x60/8B5CF6/FFFFFF?text=User" alt="User" class="w-12 h-12 rounded-full mr-4">
                     <div>
                       <h4 class="font-semibold text-white">Herta Matos</h4>
                       <p class="text-sm text-gray-400">Businessman</p>
                     </div>
                   </div>
-                  <p class="text-gray-300">"The Genie has completely transformed how I manage my daily tasks. It's like having a personal assistant!"</p>
-                  <div class="mt-4 flex">
-                    <i class="fas fa-star text-yellow-400"></i>
-                    <i class="fas fa-star text-yellow-400 ml-1"></i>
-                    <i class="fas fa-star text-yellow-400 ml-1"></i>
-                    <i class="fas fa-star text-yellow-400 ml-1"></i>
-                    <i class="fas fa-star text-yellow-400 ml-1"></i>
+                  <p class="text-gray-300 relative z-10">"The Genie has completely transformed how I manage my daily tasks. It's like having a personal assistant!"</p>
+                  <div class="mt-4 flex relative z-10">
+                    <i class="fas fa-star text-accent-gold"></i>
+                    <i class="fas fa-star text-accent-gold ml-1"></i>
+                    <i class="fas fa-star text-accent-gold ml-1"></i>
+                    <i class="fas fa-star text-accent-gold ml-1"></i>
+                    <i class="fas fa-star text-accent-gold ml-1"></i>
                   </div>
                 </div>
                 
                 <!-- Testimonial Card 2 -->
-                <div class="bg-dark-light rounded-lg shadow-md p-6 transition-transform hover:-translate-y-1 hover:shadow-lg border border-gray-800">
-                  <div class="flex items-center mb-4">
-                    <img src="https://placehold.co/60x60/6366f1/FFFFFF?text=User" alt="User" class="w-12 h-12 rounded-full mr-4">
+                <div class="bg-dark-light rounded-lg shadow-md p-6 transition-transform hover:-translate-y-1 hover:shadow-lg duration-300 border border-gray-800 relative overflow-hidden group">
+                  <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div class="flex items-center mb-4 relative z-10">
+                    <img src="https://placehold.co/60x60/8B5CF6/FFFFFF?text=User" alt="User" class="w-12 h-12 rounded-full mr-4">
                     <div>
                       <h4 class="font-semibold text-white">George Matos</h4>
                       <p class="text-sm text-gray-400">Businessman</p>
                     </div>
                   </div>
-                  <p class="text-gray-300">"I've tried many productivity tools, but nothing compares to the efficiency and ease of use that Genie provides."</p>
-                  <div class="mt-4 flex">
-                    <i class="fas fa-star text-yellow-400"></i>
-                    <i class="fas fa-star text-yellow-400 ml-1"></i>
-                    <i class="fas fa-star text-yellow-400 ml-1"></i>
-                    <i class="fas fa-star text-yellow-400 ml-1"></i>
-                    <i class="fas fa-star text-yellow-400 ml-1"></i>
+                  <p class="text-gray-300 relative z-10">"I've tried many productivity tools, but nothing compares to the efficiency and ease of use that Genie provides."</p>
+                  <div class="mt-4 flex relative z-10">
+                    <i class="fas fa-star text-accent-gold"></i>
+                    <i class="fas fa-star text-accent-gold ml-1"></i>
+                    <i class="fas fa-star text-accent-gold ml-1"></i>
+                    <i class="fas fa-star text-accent-gold ml-1"></i>
+                    <i class="fas fa-star text-accent-gold ml-1"></i>
                   </div>
                 </div>
                 
                 <!-- Testimonial Card 3 -->
-                <div class="bg-dark-light rounded-lg shadow-md p-6 transition-transform hover:-translate-y-1 hover:shadow-lg border border-gray-800">
-                  <div class="flex items-center mb-4">
-                    <img src="https://placehold.co/60x60/6366f1/FFFFFF?text=User" alt="User" class="w-12 h-12 rounded-full mr-4">
+                <div class="bg-dark-light rounded-lg shadow-md p-6 transition-transform hover:-translate-y-1 hover:shadow-lg duration-300 border border-gray-800 relative overflow-hidden group">
+                  <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div class="flex items-center mb-4 relative z-10">
+                    <img src="https://placehold.co/60x60/8B5CF6/FFFFFF?text=User" alt="User" class="w-12 h-12 rounded-full mr-4">
                     <div>
                       <h4 class="font-semibold text-white">D. Ledford</h4>
                       <p class="text-sm text-gray-400">Businessman</p>
                     </div>
                   </div>
-                  <p class="text-gray-300">"Since implementing Genie across our team, we've seen a 40% increase in productivity and communication."</p>
-                  <div class="mt-4 flex">
-                    <i class="fas fa-star text-yellow-400"></i>
-                    <i class="fas fa-star text-yellow-400 ml-1"></i>
-                    <i class="fas fa-star text-yellow-400 ml-1"></i>
-                    <i class="fas fa-star text-yellow-400 ml-1"></i>
-                    <i class="fas fa-star text-yellow-400 ml-1"></i>
+                  <p class="text-gray-300 relative z-10">"Since implementing Genie across our team, we've seen a 40% increase in productivity and communication."</p>
+                  <div class="mt-4 flex relative z-10">
+                    <i class="fas fa-star text-accent-gold"></i>
+                    <i class="fas fa-star text-accent-gold ml-1"></i>
+                    <i class="fas fa-star text-accent-gold ml-1"></i>
+                    <i class="fas fa-star text-accent-gold ml-1"></i>
+                    <i class="fas fa-star text-accent-gold ml-1"></i>
                   </div>
                 </div>
               </div>
@@ -1461,11 +1670,12 @@
             <!-- Right Side - User Images and Activity Feed -->
             <div class="lg:w-1/3">
               <!-- User Images Grid -->
-              <div class="bg-dark-light rounded-xl shadow-lg p-6 mb-8 border border-gray-800">
-                <h4 class="font-semibold mb-4 text-white">Our Happy Customers</h4>
-                <div class="grid grid-cols-2 gap-4">
+              <div class="bg-dark-light rounded-xl shadow-lg p-6 mb-8 border border-gray-800 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <h4 class="font-semibold mb-4 text-white relative z-10">Our Happy Customers</h4>
+                <div class="grid grid-cols-2 gap-4 relative z-10">
                   <div class="relative group cursor-pointer">
-                    <img src="https://placehold.co/200x200/6366f1/FFFFFF?text=User+1" alt="Herta Matos" class="w-full h-auto rounded-lg">
+                    <img src="https://placehold.co/200x200/8B5CF6/FFFFFF?text=User+1" alt="Herta Matos" class="w-full h-auto rounded-lg">
                     <div class="absolute inset-0 bg-primary bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 rounded-lg"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 bg-black bg-opacity-50 text-white rounded-b-lg">
                       <h5 class="text-sm font-medium">Herta Matos</h5>
@@ -1473,7 +1683,7 @@
                     </div>
                   </div>
                   <div class="relative group cursor-pointer">
-                    <img src="https://placehold.co/200x200/6366f1/FFFFFF?text=User+2" alt="George Matos" class="w-full h-auto rounded-lg">
+                    <img src="https://placehold.co/200x200/8B5CF6/FFFFFF?text=User+2" alt="George Matos" class="w-full h-auto rounded-lg">
                     <div class="absolute inset-0 bg-primary bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 rounded-lg"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 bg-black bg-opacity-50 text-white rounded-b-lg">
                       <h5 class="text-sm font-medium">George Matos</h5>
@@ -1481,7 +1691,7 @@
                     </div>
                   </div>
                   <div class="relative group cursor-pointer">
-                    <img src="https://placehold.co/200x200/6366f1/FFFFFF?text=User+3" alt="D. Ledford" class="w-full h-auto rounded-lg">
+                    <img src="https://placehold.co/200x200/8B5CF6/FFFFFF?text=User+3" alt="D. Ledford" class="w-full h-auto rounded-lg">
                     <div class="absolute inset-0 bg-primary bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 rounded-lg"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 bg-black bg-opacity-50 text-white rounded-b-lg">
                       <h5 class="text-sm font-medium">D. Ledford</h5>
@@ -1489,7 +1699,7 @@
                     </div>
                   </div>
                   <div class="relative group cursor-pointer">
-                    <img src="https://placehold.co/200x200/6366f1/FFFFFF?text=User+4" alt="Racheal" class="w-full h-auto rounded-lg">
+                    <img src="https://placehold.co/200x200/8B5CF6/FFFFFF?text=User+4" alt="Racheal" class="w-full h-auto rounded-lg">
                     <div class="absolute inset-0 bg-primary bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 rounded-lg"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 bg-black bg-opacity-50 text-white rounded-b-lg">
                       <h5 class="text-sm font-medium">Racheal</h5>
@@ -1499,28 +1709,29 @@
                 </div>
                 
                 <!-- Navigation Arrows -->
-                <div class="flex justify-between mt-4">
-                  <button id="prev-user" class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center hover:bg-gray-800">
+                <div class="flex justify-between mt-4 relative z-10">
+                  <button id="prev-user" class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center hover:bg-gray-800 bg-dark-deeper">
                     <i class="fas fa-chevron-left text-gray-400"></i>
                   </button>
-                  <button id="next-user" class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center hover:bg-gray-800">
+                  <button id="next-user" class="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center hover:bg-gray-800 bg-dark-deeper">
                     <i class="fas fa-chevron-right text-gray-400"></i>
                   </button>
                 </div>
               </div>
               
               <!-- Live Activity Feed -->
-              <div class="bg-dark-light rounded-xl shadow-lg overflow-hidden border border-gray-800">
-                <div class="bg-primary text-white p-4">
+              <div class="bg-dark-light rounded-xl shadow-lg overflow-hidden border border-gray-800 relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div class="bg-gradient-to-r from-primary to-primary-dark text-white p-4 relative z-10">
                   <h4 class="font-semibold flex items-center">
-                    <span class="inline-block w-2 h-2 bg-green-400 rounded-full mr-2"></span>
+                    <span class="inline-block w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
                     Live Activity
                   </h4>
                 </div>
                 <div class="p-4 max-h-80 overflow-y-auto" id="activity-feed">
                   <div class="border-b border-gray-800 pb-3 mb-3">
                     <div class="flex items-center">
-                      <div class="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+                      <div class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
                       <p class="text-sm text-gray-300">
                         <span class="font-medium">John D.</span> from New York just signed up
                         <span class="text-xs text-gray-500 ml-2">2 min ago</span>
@@ -1529,7 +1740,7 @@
                   </div>
                   <div class="border-b border-gray-800 pb-3 mb-3">
                     <div class="flex items-center">
-                      <div class="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+                      <div class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
                       <p class="text-sm text-gray-300">
                         <span class="font-medium">Sarah M.</span> from London just signed up
                         <span class="text-xs text-gray-500 ml-2">5 min ago</span>
@@ -1538,7 +1749,7 @@
                   </div>
                   <div class="border-b border-gray-800 pb-3 mb-3">
                     <div class="flex items-center">
-                      <div class="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+                      <div class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
                       <p class="text-sm text-gray-300">
                         <span class="font-medium">Alex T.</span> from Toronto just signed up
                         <span class="text-xs text-gray-500 ml-2">12 min ago</span>
@@ -1547,7 +1758,7 @@
                   </div>
                   <div class="border-b border-gray-800 pb-3 mb-3">
                     <div class="flex items-center">
-                      <div class="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+                      <div class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
                       <p class="text-sm text-gray-300">
                         <span class="font-medium">Maria G.</span> from Madrid just signed up
                         <span class="text-xs text-gray-500 ml-2">18 min ago</span>
@@ -1556,7 +1767,7 @@
                   </div>
                   <div class="border-b border-gray-800 pb-3 mb-3">
                     <div class="flex items-center">
-                      <div class="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+                      <div class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
                       <p class="text-sm text-gray-300">
                         <span class="font-medium">Raj P.</span> from Mumbai just signed up
                         <span class="text-xs text-gray-500 ml-2">25 min ago</span>
@@ -1571,12 +1782,17 @@
       </section>
 
       <!-- Waitlist Section -->
-      <section class="py-20 px-4 sm:px-6 lg:px-8 bg-dark-deeper overflow-hidden">
-        <div class="max-w-7xl mx-auto">
+      <section class="py-20 px-4 sm:px-6 lg:px-8 bg-dark-deeper overflow-hidden relative">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxwYXRoIGQ9Ik0gNDAgMCBMIDAgMCAwIDQwIiBmaWxsPSJub25lIiBzdHJva2U9IiM4QjVDRjYiIHN0cm9rZS13aWR0aD0iMC4yIiBvcGFjaXR5PSIwLjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')]"></div>
+        <div class="absolute inset-0 overflow-hidden">
+          <div class="absolute top-0 right-0 w-96 h-96 bg-primary opacity-5 rounded-full blur-3xl"></div>
+          <div class="absolute bottom-0 left-0 w-96 h-96 bg-accent-gold opacity-5 rounded-full blur-3xl"></div>
+        </div>
+        <div class="max-w-7xl mx-auto relative z-10">
           <!-- Section Header -->
           <div class="text-center mb-16">
             <div class="inline-block mb-4">
-              <div class="h-1 w-12 bg-primary rounded-full mb-2 mx-auto"></div>
+              <div class="h-1 w-12 bg-gradient-to-r from-primary to-accent rounded-full mb-2 mx-auto"></div>
               <span class="text-sm font-semibold uppercase tracking-wider text-primary-light">Join Our Waitlist</span>
             </div>
             <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight text-white">
@@ -1591,9 +1807,10 @@
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
             <!-- Card 1: Gift/Wish Bank -->
             <div class="bg-dark-light rounded-xl shadow-lg p-8 card-hover border border-gray-800 relative overflow-hidden group">
+              <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div class="absolute top-0 right-0 w-32 h-32 bg-primary opacity-5 rounded-full -mr-16 -mt-16 group-hover:scale-110 transition-transform duration-500"></div>
               
-              <div class="relative">
+              <div class="relative z-10">
                 <div class="w-16 h-16 rounded-full bg-primary bg-opacity-10 flex items-center justify-center mb-6 group-hover:animate-float">
                   <i class="fas fa-gift text-2xl text-primary-light"></i>
                 </div>
@@ -1614,9 +1831,10 @@
 
             <!-- Card 2: Meme/Fun -->
             <div class="bg-dark-light rounded-xl shadow-lg p-8 card-hover border border-gray-800 relative overflow-hidden group">
+              <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div class="absolute top-0 right-0 w-32 h-32 bg-accent opacity-5 rounded-full -mr-16 -mt-16 group-hover:scale-110 transition-transform duration-500"></div>
               
-              <div class="relative">
+              <div class="relative z-10">
                 <div class="w-16 h-16 rounded-full bg-accent bg-opacity-10 flex items-center justify-center mb-6 group-hover:animate-float">
                   <i class="fas fa-laugh-beam text-2xl text-accent"></i>
                 </div>
@@ -1637,9 +1855,10 @@
 
             <!-- Card 3: Priority/Lightning -->
             <div class="bg-dark-light rounded-xl shadow-lg p-8 card-hover border border-gray-800 relative overflow-hidden group">
+              <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div class="absolute top-0 right-0 w-32 h-32 bg-yellow-500 opacity-5 rounded-full -mr-16 -mt-16 group-hover:scale-110 transition-transform duration-500"></div>
               
-              <div class="relative">
+              <div class="relative z-10">
                 <div class="w-16 h-16 rounded-full bg-yellow-500 bg-opacity-10 flex items-center justify-center mb-6 group-hover:animate-float">
                   <i class="fas fa-bolt text-2xl text-yellow-500"></i>
                 </div>
@@ -1660,9 +1879,10 @@
 
             <!-- Card 4: Crown/Status -->
             <div class="bg-dark-light rounded-xl shadow-lg p-8 card-hover border border-gray-800 relative overflow-hidden group">
+              <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div class="absolute top-0 right-0 w-32 h-32 bg-purple-600 opacity-5 rounded-full -mr-16 -mt-16 group-hover:scale-110 transition-transform duration-500"></div>
               
-              <div class="relative">
+              <div class="relative z-10">
                 <div class="w-16 h-16 rounded-full bg-purple-600 bg-opacity-10 flex items-center justify-center mb-6 group-hover:animate-float">
                   <i class="fas fa-crown text-2xl text-purple-600"></i>
                 </div>
@@ -1684,19 +1904,19 @@
 
           <!-- CTA Button -->
           <div class="mt-16 text-center">
-            <a href="#" class="inline-flex items-center justify-center px-8 py-4 text-base font-medium text-white bg-primary hover:bg-primary-hover rounded-lg shadow-lg transition-colors duration-300 transform hover:scale-105">
+            <a href="#" class="inline-flex items-center justify-center px-8 py-4 text-base font-medium text-white bg-gradient-to-r from-primary to-primary-dark hover:from-primary-hover hover:to-primary-dark rounded-lg shadow-glow transition-all duration-300 transform hover:scale-105">
               Join the Waitlist
               <svg class="w-5 h-5 ml-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </a>
-            <p class="mt-4 text-sm text-gray-500">Already 2,500+ people on the waitlist</p>
+            <p class="mt-4 text-sm text-gray-500">Already <span class="text-accent-gold font-semibold">2,500+</span> people on the waitlist</p>
           </div>
         </div>
       </section>
 
       <!-- Final CTA Section -->
-      <section class="bg-premium-gradient-end py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden px-6 md:px-12 lg:px-20">
+      <section class="bg-gradient-to-br from-dark-deeper via-premium-purple/20 to-dark-deeper py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden px-6 md:px-12 lg:px-20">
         <!-- Decorative Elements -->
         <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
           <div class="absolute top-10 left-10 w-64 h-64 bg-white opacity-5 rounded-full"></div>
@@ -1708,7 +1928,7 @@
           <!-- Main Content -->
           <div class="text-center">
             <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-4 leading-tight">
-              Your Thumbs Deserve Retirement
+              Your Thumbs Deserve <span class="gradient-text">Retirement</span>
             </h2>
             <p class="text-xl md:text-2xl text-white text-opacity-90 mb-8 max-w-2xl mx-auto">
               Join the waitlist now or keep finger-pecking like it's 1999.
@@ -1729,7 +1949,7 @@
             <!-- CTA Buttons -->
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
               <!-- Primary Button -->
-              <button class="w-full sm:w-auto px-8 py-4 bg-white text-primary font-bold rounded-lg shadow-lg btn-hover-effect hover:shadow-glow text-lg">
+              <button class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-accent-gold to-accent hover:from-accent hover:to-accent-gold text-dark-deeper font-bold rounded-lg shadow-gold btn-hover-effect text-lg">
                 YES, I WANT MAGICAL LAZINESS →
               </button>
               
@@ -1795,515 +2015,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-premium-gradient-end text-footer-text py-12 px-4 sm:px-6 lg:px-8 animate-fade-in px-6 md:px-12 lg:px-20 border-t border-gray-800">
+    <footer class="bg-gradient-to-br from-dark-deeper via-premium-purple/5 to-dark-deeper text-footer-text py-12 px-4 sm:px-6 lg:px-8 animate-fade-in px-6 md:px-12 lg:px-20 border-t border-gray-800">
       <div class="max-w-7xl mx-auto">
         <!-- Main Footer Content -->
         <div class="flex flex-col items-center">
-          <!-- Logo (Optional) -->
-          <div class="mb-8">
-            <div class="text-2xl font-bold text-white flex items-center">
-              <span class="mr-2">✨</span>
-              <span>Genie AI</span>
-            </div>
-          </div>
-          
-          <!-- Navigation Links -->
-          <nav class="mb-8">
-            <ul class="flex flex-wrap justify-center gap-x-8 gap-y-4">
-              <li>
-                <a href="#" class="footer-link text-footer-link hover:text-footer-link-hover transition-colors">
-                  Privacy Policy
-                </a>
-              </li>
-              <li>
-                <a href="#" class="footer-link text-footer-link hover:text-footer-link-hover transition-colors">
-                  Terms of Service
-                </a>
-              </li>
-              <li>
-                <a href="#" class="footer-link text-footer-link hover:text-footer-link-hover transition-colors">
-                  Contact
-                </a>
-              </li>
-              <li>
-                <a href="#" class="footer-link text-footer-link hover:text-footer-link-hover transition-colors">
-                  FAQ
-                </a>
-              </li>
-              <li>
-                <a href="#" class="footer-link text-footer-link hover:text-footer-link-hover transition-colors">
-                  Support
-                </a>
-              </li>
-            </ul>
-          </nav>
-          
-          <!-- Social Media Links -->
-          <div class="flex justify-center space-x-6 mb-8">
-            <a href="#" class="text-gray-400 hover:text-footer-link-hover transition-colors" aria-label="Twitter">
-              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
-              </svg>
-            </a>
-            <a href="#" class="text-gray-400 hover:text-footer-link-hover transition-colors" aria-label="LinkedIn">
-              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path>
-              </svg>
-            </a>
-            <a href="#" class="text-gray-400 hover:text-footer-link-hover transition-colors" aria-label="Instagram">
-              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path>
-              </svg>
-            </a>
-          </div>
-          
-          <!-- Divider -->
-          <div class="w-full max-w-3xl h-px bg-gray-700 mb-8"></div>
-          
-          <!-- Copyright -->
-          <div class="text-center text-sm text-gray-400">
-            <p>© 2025 Genie AI. All rights reserved.</p>
-          </div>
-          
-          <!-- Additional Info (Optional) -->
-          <div class="mt-4 text-xs text-gray-500 text-center max-w-2xl">
-            <p>Genie AI uses advanced artificial intelligence to help you accomplish more with less effort. Our technology is designed to respect your privacy and security.</p>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Back to Top Button -->
-      <div class="fixed bottom-8 right-8 z-50">
-        <button id="back-to-top" class="bg-primary text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" aria-label="Back to top">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-          </svg>
-        </button>
-      </div>
-    </footer>
-
-    <!-- JavaScript for dropdown functionality -->
-    <script>
-      // Track active dropdown
-      let activeDropdown = null;
-      
-      // Toggle desktop dropdown
-      function toggleDropdown(dropdown) {
-        const dropdownMenu = document.querySelector(`.dropdown-menu[data-dropdown="${dropdown}"]`);
-        const dropdownIcon = document.querySelector(`.dropdown-icon[data-dropdown="${dropdown}"]`);
-        
-        // Close any open dropdown
-        if (activeDropdown && activeDropdown !== dropdown) {
-          const activeMenu = document.querySelector(`.dropdown-menu[data-dropdown="${activeDropdown}"]`);
-          const activeIcon = document.querySelector(`.dropdown-icon[data-dropdown="${activeDropdown}"]`);
-          
-          if (activeMenu) activeMenu.classList.add('hidden');
-          if (activeIcon) activeIcon.classList.remove('rotate-180');
-        }
-        
-        // Toggle current dropdown
-        if (dropdownMenu) {
-          dropdownMenu.classList.toggle('hidden');
-          dropdownIcon.classList.toggle('rotate-180');
-          
-          // Update active dropdown
-          activeDropdown = dropdownMenu.classList.contains('hidden') ? null : dropdown;
-        }
-      }
-      
-      // Toggle mobile menu
-      function toggleMobileMenu() {
-        const mobileMenu = document.getElementById('mobile-menu');
-        const menuButton = document.getElementById('mobile-menu-button');
-        
-        if (mobileMenu.classList.contains('hidden')) {
-          mobileMenu.classList.remove('hidden');
-          menuButton.innerHTML = `
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            `;
-        } else {
-          mobileMenu.classList.add('hidden');
-          menuButton.innerHTML = `
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            `;
-          
-          // Close all mobile dropdowns
-          const mobileDropdowns = document.querySelectorAll('.mobile-dropdown-menu');
-          const mobileIcons = document.querySelectorAll('.mobile-dropdown-icon');
-          
-          mobileDropdowns.forEach(dropdown => {
-            dropdown.classList.add('hidden');
-          });
-          
-          mobileIcons.forEach(icon => {
-            icon.classList.remove('rotate-180');
-          });
-        }
-      }
-      
-      // Toggle mobile dropdown
-      function toggleMobileDropdown(dropdown) {
-        const dropdownMenu = document.querySelector(`.mobile-dropdown-menu[data-dropdown="${dropdown}"]`);
-        const dropdownIcon = document.querySelector(`.mobile-dropdown-icon[data-dropdown="${dropdown}"]`);
-        
-        if (dropdownMenu) {
-          dropdownMenu.classList.toggle('hidden');
-          dropdownIcon.classList.toggle('rotate-180');
-        }
-      }
-      
-      // Close dropdowns when clicking outside
-      document.addEventListener('click', function(event) {
-        if (!event.target.closest('button') && !event.target.closest('.dropdown-menu')) {
-          const dropdowns = document.querySelectorAll('.dropdown-menu');
-          const icons = document.querySelectorAll('.dropdown-icon');
-          
-          dropdowns.forEach(dropdown => {
-            dropdown.classList.add('hidden');
-          });
-          
-          icons.forEach(icon => {
-            icon.classList.remove('rotate-180');
-          });
-          
-          activeDropdown = null;
-        }
-      });
-    </script>
-
-    <!-- JavaScript for logo marquee -->
-    <script>
-      // Get references to DOM elements
-      const firstRow = document.getElementById('firstRow');
-      const secondRow = document.getElementById('secondRow');
-      const toggleButton = document.getElementById('toggleButton');
-      const pauseIcon = document.getElementById('pauseIcon');
-      const playIcon = document.getElementById('playIcon');
-      
-      let isPaused = false;
-      
-      // Toggle pause/play function
-      function togglePause() {
-        isPaused = !isPaused;
-        
-        if (isPaused) {
-          // Add the paused class to stop the animation
-          firstRow.classList.add('paused');
-          secondRow.classList.add('paused');
-          pauseIcon.classList.add('hidden');
-          playIcon.classList.remove('hidden');
-          toggleButton.setAttribute('aria-label', 'Play');
-        } else {
-          // Remove the paused class to resume the animation
-          firstRow.classList.remove('paused');
-          secondRow.classList.remove('paused');
-          pauseIcon.classList.remove('hidden');
-          playIcon.classList.add('hidden');
-          toggleButton.setAttribute('aria-label', 'Pause');
-        }
-      }
-      
-      // Add click event listener to the button
-      toggleButton.addEventListener('click', togglePause);
-    </script>
-
-    <!-- JavaScript for video features -->
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const featureSections = document.querySelectorAll('.feature-section');
-        const videoContainers = document.querySelectorAll('.video-container');
-        const videos = document.querySelectorAll('video');
-      
-        // Play all videos on load
-        videos.forEach(video => {
-          video.play();
-        });
-      
-        // Function to check if an element is in viewport
-        function isInViewport(element) {
-          const rect = element.getBoundingClientRect();
-          const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-      
-          // Consider an element in view when it's in the middle of the viewport
-          return (
-            rect.top <= windowHeight / 2 &&
-            rect.bottom >= windowHeight / 2
-          );
-        }
-      
-        // Function to update active video based on scroll position
-        function updateActiveVideo() {
-          let activeFeature = null;
-      
-          // Find which feature section is currently in view
-          featureSections.forEach(section => {
-            if (isInViewport(section)) {
-              activeFeature = section;
-            }
-          });
-      
-          // If a feature section is in view, update the active video
-          if (activeFeature) {
-            const videoId = activeFeature.getAttribute('data-video');
-      
-            // Hide all videos
-            videoContainers.forEach(container => {
-              container.classList.remove('active');
-            });
-      
-            // Show the active video
-            const activeVideo = document.getElementById(videoId);
-            if (activeVideo) {
-              activeVideo.classList.add('active');
-      
-              // Ensure the video is playing
-              const videoElement = activeVideo.querySelector('video');
-              if (videoElement && videoElement.paused) {
-                videoElement.play();
-              }
-            }
-          }
-        }
-      
-        // Update active video on scroll
-        window.addEventListener('scroll', updateActiveVideo);
-      
-        // Initial update
-        updateActiveVideo();
-      });
-    </script>
-
-    <!-- JavaScript for testimonials -->
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // Testimonial Slider Functionality
-        const testimonials = [
-          {
-            text: "I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual this mistaken idea will give you a complete account.",
-            rating: 5
-          },
-          {
-            text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-            rating: 5
-          },
-          {
-            text: "The Genie platform has revolutionized our workflow. What used to take hours now takes minutes, and the quality of our output has improved dramatically. I can't imagine going back to our old way of working.",
-            rating: 5
-          }
-        ];
-        
-        const testimonialContent = document.getElementById('testimonial-content');
-        const dots = document.querySelectorAll('[aria-label^="Go to slide"]');
-        let currentIndex = 0;
-        
-        // Set up dot click handlers
-        dots.forEach((dot, index) => {
-          dot.addEventListener('click', () => {
-            currentIndex = index;
-            updateTestimonial();
-            updateDots();
-          });
-        });
-        
-        function updateTestimonial() {
-          const testimonial = testimonials[currentIndex];
-          testimonialContent.innerHTML = `
-            <img src="https://placehold.co/60x60/6366f1/FFFFFF?text=Quote" alt="Quote" class="w-12 h-12 mb-6">
-            <div class="mb-6">
-              <h3 class="text-xl text-gray-300 italic leading-relaxed">"${testimonial.text}"</h3>
-            </div>
-            <div class="flex items-center">
-              ${Array(testimonial.rating).fill('<i class="fas fa-star text-yellow-400 ml-1"></i>').join('')}
-            </div>
-          `;
-        }
-        
-        function updateDots() {
-          dots.forEach((dot, index) => {
-            if (index === currentIndex) {
-              dot.classList.remove('bg-gray-600');
-              dot.classList.add('bg-primary');
-            } else {
-              dot.classList.remove('bg-primary');
-              dot.classList.add('bg-gray-600');
-            }
-          });
-        }
-        
-        // Auto-rotate testimonials
-        setInterval(() => {
-          currentIndex = (currentIndex + 1) % testimonials.length;
-          updateTestimonial();
-          updateDots();
-        }, 5000);
-        
-        // User navigation
-        const prevUserBtn = document.getElementById('prev-user');
-        const nextUserBtn = document.getElementById('next-user');
-        
-        prevUserBtn.addEventListener('click', function() {
-          // Implement user navigation logic here
-          console.log('Previous user clicked');
-        });
-        
-        nextUserBtn.addEventListener('click', function() {
-          // Implement user navigation logic here
-          console.log('Next user clicked');
-        });
-        
-        // Live activity feed simulation
-        const activityFeed = document.getElementById('activity-feed');
-        const cities = ['New York', 'London', 'Paris', 'Tokyo', 'Sydney', 'Berlin', 'Toronto', 'Mumbai', 'Dubai', 'São Paulo'];
-        const names = ['John', 'Sarah', 'Alex', 'Maria', 'Raj', 'Emma', 'Michael', 'Sophia', 'David', 'Olivia'];
-        
-        function addNewActivity() {
-          const name = names[Math.floor(Math.random() * names.length)];
-          const initial = name.charAt(0);
-          const city = cities[Math.floor(Math.random() * cities.length)];
-          const time = Math.floor(Math.random() * 30) + 1;
-          
-          const activityItem = document.createElement('div');
-          activityItem.className = 'border-b border-gray-800 pb-3 mb-3';
-          activityItem.innerHTML = `
-            <div class="flex items-center">
-              <div class="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
-              <p class="text-sm text-gray-300">
-                <span class="font-medium">${name} ${initial}.</span> from ${city} just signed up
-                <span class="text-xs text-gray-500 ml-2">${time} min ago</span>
-              </p>
-            </div>
-          `;
-          
-          activityFeed.prepend(activityItem);
-          
-          // Remove oldest item if there are more than 10
-          if (activityFeed.children.length > 10) {
-            activityFeed.removeChild(activityFeed.lastChild);
-          }
-        }
-        
-        // Add new activity every 8-15 seconds
-        setInterval(() => {
-          addNewActivity();
-        }, Math.random() * 7000 + 8000);
-      });
-    </script>
-
-    <!-- JavaScript for countdown timer -->
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // Countdown Timer
-        function updateCountdown() {
-          const now = new Date();
-          const targetDate = new Date();
-          
-          // Set target date to 3 days from now
-          targetDate.setDate(now.getDate() + 3);
-          targetDate.setHours(23, 59, 59, 0);
-          
-          const difference = targetDate - now;
-          
-          const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-          const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-          const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-          
-          document.getElementById('days').innerText = days;
-          document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
-          document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
-          document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
-        }
-        
-        // Update countdown every second
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-        
-        // FOMO counter animation
-        const spotsElement = document.querySelector('.bg-white.bg-opacity-20 span');
-        if (spotsElement) {
-          const spotsText = spotsElement.textContent;
-          const spotsMatch = spotsText.match(/(\d+) spots claimed, only (\d+) remaining/);
-          
-          if (spotsMatch) {
-            let claimed = parseInt(spotsMatch[1]);
-            let remaining = parseInt(spotsMatch[2]);
-            
-            setInterval(() => {
-              if (Math.random() > 0.7 && remaining > 1) {
-                claimed += 1;
-                remaining -= 1;
-                spotsElement.textContent = `${claimed} spots claimed, only ${remaining} remaining`;
-              }
-            }, 5000);
-          }
-        }
-        
-        // Button hover animation
-        const primaryButton = document.querySelector('.bg-white.text-primary');
-        if (primaryButton) {
-          primaryButton.addEventListener('mouseenter', function() {
-            this.classList.add('animate-bounce-slow');
-          });
-          primaryButton.addEventListener('mouseleave', function() {
-            this.classList.remove('animate-bounce-slow');
-          });
-        }
-      });
-    </script>
-
-    <!-- JavaScript for back to top button -->
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // Back to Top Button
-        const backToTopButton = document.getElementById('back-to-top');
-        
-        window.addEventListener('scroll', function() {
-          if (window.pageYOffset > 300) {
-            backToTopButton.classList.remove('opacity-0', 'invisible');
-            backToTopButton.classList.add('opacity-100', 'visible');
-          } else {
-            backToTopButton.classList.add('opacity-0', 'invisible');
-            backToTopButton.classList.remove('opacity-100', 'visible');
-          }
-        });
-        
-        backToTopButton.addEventListener('click', function() {
-          window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-          });
-        });
-        
-        // Fade in animation for footer elements
-        const footerElements = document.querySelectorAll('footer > div > div > *');
-        
-        const observerOptions = {
-          root: null,
-          rootMargin: '0px',
-          threshold: 0.1
-        };
-        
-        const observer = new IntersectionObserver((entries, observer) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.style.opacity = '1';
-              entry.target.style.transform = 'translateY(0)';
-              observer.unobserve(entry.target);
-            }
-          });
-        }, observerOptions);
-        
-        footerElements.forEach((element, index) => {
-          element.style.opacity = '0';
-          element.style.transform = 'translateY(10px)';
-          element.style.transition = `all 0.5s ease ${index * 0.1}s`;
-          observer.observe(element);
-        });
-      });
-    </script>
-</body>
-</html>
